@@ -1,0 +1,151 @@
+/* Estilos para el fondo de imagen */
+.bg-image {
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    min-height: 100vh;
+    position: relative;
+}
+
+body .content-overlay {
+    background-color: rgba(255, 255, 255, 0.0) !important;
+    backdrop-filter: blur(25px) !important;
+    margin: 15px !important;
+    border-radius: 15px !important;
+    box-shadow: 0 0 10px rgba(107, 26, 0, 0.03) !important;
+    min-height: calc(100vh - 30px) !important;
+    border: 1px solid rgba(254, 34, 0, 0.015) !important;
+}
+
+/* Efecto glass */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+}
+
+/* Colores personalizados con tu paleta */
+:root {
+    --primary: #526A37;  /* Tu color principal */
+    --primary-dark: #3a4c27;
+    --secondary: #ed7014;
+    --success: #526A37;
+    --warning: #EC9706;
+    --info: #6b1a00;
+    --light: #e2cfc8;
+}
+
+/* Aplicar colores a Bootstrap */
+.border-left-primary { border-left-color: var(--primary) !important; }
+.border-left-success { border-left-color: var(--primary) !important; }
+.text-primary { color: var(--primary) !important; }
+.bg-primary { background-color: var(--primary) !important; }
+
+.text-success { color: var(--success) !important; }
+.bg-success { background-color: var(--success) !important; }
+
+
+.text-warning { color: var(--warning) !important; }
+.bg-warning { background-color: var(--warning) !important; }
+.border-left-warning { border-left-color: var(--warning) !important; }
+
+.text-info { color: var(--info) !important; }
+.bg-info { background-color: var(--info) !important; }
+.border-left-info { border-left-color: var(--info) !important; }
+
+/* Botones personalizados */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a7540 0%, #43582e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(82, 106, 55, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success) 0%, #678945 100%);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning) 0%, #f0a730 100%);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* Sidebar personalizado */
+.sidebar {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+}
+
+.sidebar .nav-item .nav-link {
+    border-radius: 8px;
+    margin: 2px 10px;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.);
+}
+
+.sidebar .nav-item .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+    color: white;
+}
+
+.sidebar .nav-item.active .nav-link {
+    background-color: rgba(255, 255, 255, 0.25);
+    font-weight: bold;
+    color: white;
+}
+.sidebar-brand-icon {
+    transform: none !important;
+}
+
+/* Topbar */
+.topbar {
+    border-radius: 12px 12px 0 0;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(15px);
+}
+
+/* Cards */
+.card {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(254, 34, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(107, 26, 0, 0.15);
+    background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Badges */
+.badge-success {
+    background: linear-gradient(135deg, var(--success) 0%, #678945 100%);
+}
+
+.badge-danger {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, var(--warning) 0%, #f0a730 100%);
+}
+
+/* Iconos */
+.fa-2x.text-primary { color: var(--primary) !important; }
+.fa-2x.text-success { color: var(--success) }

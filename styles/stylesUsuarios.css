@@ -1,0 +1,178 @@
+/* ===== ESTILOS GENERALES ===== */
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+.container-fluid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+/* ===== ENCABEZADO USUARIOS ===== */
+.usuarios-header {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ===== CONTENEDOR DE TABLA ===== */
+.tabla-container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===== CONTENEDOR CON SCROLL DUAL ===== */
+.table-scroll-container {
+    height: 600px;
+    overflow: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+/* ===== TABLA USUARIOS ===== */
+.table-usuarios {
+    width: 100%;
+    margin-bottom: 0;
+    color: #2c3e50;
+    background: transparent;
+    table-layout: fixed;
+    min-width: 900px;
+}
+
+.table-header th {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    padding: 16px 12px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.table-usuarios tbody td {
+    background: rgba(255, 255, 255, 0.9);
+    color: #2c3e50;
+    border-color: rgba(0, 0, 0, 0.1);
+    padding: 12px 10px;
+    vertical-align: middle;
+    transition: all 0.3s ease;
+    word-wrap: break-word;
+}
+
+.table-usuarios tbody tr:hover td {
+    background: rgba(52, 152, 219, 0.1);
+    transform: scale(1.01);
+}
+
+/* ===== AVATAR DE USUARIO ===== */
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.contact-info {
+    font-size: 0.9rem;
+}
+
+.password-dots {
+    color: #6c757d;
+    font-weight: 600;
+}
+
+/* ===== BADGES ===== */
+.badge {
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.bg-success {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+}
+
+/* ===== ESTADO VACÍO ===== */
+.empty-state {
+    padding: 40px 20px;
+}
+
+.empty-state i {
+    opacity: 0.5;
+}
+
+/* ===== SCROLLBARS PERSONALIZADOS ===== */
+.table-scroll-container::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.table-scroll-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #2980b9, #2471a3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 10px;
+    }
+    
+    .tabla-container {
+        padding: 15px;
+    }
+    
+    .table-scroll-container {
+        height: 500px;
+    }
+    
+    .usuarios-header {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .table-scroll-container {
+        height: 400px;
+    }
+}

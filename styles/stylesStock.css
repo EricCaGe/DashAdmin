@@ -1,0 +1,584 @@
+/* ===== ESTILOS GENERALES RESPONSIVE ===== */
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+.container-fluid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+/* ===== ALERTAS RESPONSIVE ===== */
+.alert {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    color: #155724;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da, #f1b0b7);
+    color: #721c24;
+}
+
+/* ===== CONTENEDOR DE TABLA RESPONSIVE ===== */
+.tabla-container {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    height: fit-content;
+}
+
+.tabla-container h2 {
+    color: #2c3e50;
+    font-weight: 700;
+    border-bottom: 3px solid #526A37;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+/* ===== CONTENEDOR CON SCROLL DUAL MEJORADO ===== */
+.table-scroll-container {
+    height: 500px;
+    overflow: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+/* ===== ESTILOS DE TABLA RESPONSIVA CON SCROLL ===== */
+.table-responsive-custom {
+    overflow: visible;
+    min-height: 0;
+}
+
+.table-amarilla {
+    width: 100%;
+    margin-bottom: 0;
+    color: #2c3e50;
+    background: transparent;
+    table-layout: fixed;
+    min-width: 800px; /* Ancho mínimo para forzar scroll horizontal */
+}
+
+/* Ajustar anchos de columnas para mejor distribución */
+.table-amarilla thead th:nth-child(1) { width: 8%; }   /* # */
+.table-amarilla thead th:nth-child(2) { width: 32%; }  /* PRODUCTO */
+.table-amarilla thead th:nth-child(3) { width: 15%; }  /* CANTIDAD */
+.table-amarilla thead th:nth-child(4) { width: 15%; }  /* PRECIO */
+.table-amarilla thead th:nth-child(5) { width: 30%; }  /* ACCIONES */
+
+.table-header th {
+    background: linear-gradient(135deg, #526A37, #3a4c27);
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    padding: 16px 12px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.table-amarilla tbody td {
+    background: rgba(255, 255, 255, 0.8);
+    color: #2c3e50;
+    border-color: rgba(0, 0, 0, 0.1);
+    padding: 12px 10px;
+    vertical-align: middle;
+    transition: all 0.3s ease;
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Permitir que el nombre del producto se expanda */
+.table-amarilla tbody td:nth-child(2) {
+    white-space: normal;
+    min-width: 200px;
+}
+
+.table-amarilla tbody tr:hover td {
+    background: rgba(82, 106, 55, 0.1);
+    transform: scale(1.01);
+}
+
+/* ===== BADGES DE CANTIDAD ===== */
+.badge {
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.bg-success {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+}
+
+.bg-warning {
+    background: linear-gradient(135deg, #ffc107, #fd7e14) !important;
+    color: #000 !important;
+}
+
+.bg-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333) !important;
+}
+
+/* ===== CONTENEDOR DE FORMULARIO RESPONSIVE ===== */
+.form-container {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    height: fit-content;
+}
+
+.form-card {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #526A37;
+    color: #2c3e50;
+}
+
+.form-card h4 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid #526A37;
+    padding-bottom: 12px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+}
+
+/* ===== FORMULARIO RESPONSIVE ===== */
+.form-label {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    color: #2c3e50;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    width: 100%;
+}
+
+.form-control::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.form-control:focus {
+    border-color: #526A37;
+    box-shadow: 0 0 0 0.3rem rgba(82, 106, 55, 0.25);
+    color: #2c3e50;
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+}
+
+/* ===== BOTONES RESPONSIVE ===== */
+.btn {
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #526A37, #3a4c27);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a7540, #43582e);
+}
+
+.btn-secondary {
+    background: rgba(108, 117, 125, 0.8);
+    border: 1px solid rgba(108, 117, 125, 0.3);
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background: rgba(108, 117, 125, 1);
+    border-color: #6c757d;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    color: #000000;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: #ffffff;
+}
+
+.btn-group .btn {
+    margin: 0 2px;
+}
+
+/* ===== FILAS ALTERNAS ===== */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ===== SCROLLBARS PERSONALIZADOS MEJORADOS ===== */
+.table-scroll-container::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+.table-scroll-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin: 4px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #526A37, #3a4c27);
+    border-radius: 10px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5a7540, #43582e);
+}
+
+.table-scroll-container::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 12px 0;
+}
+
+/* Scrollbar para Firefox */
+.table-scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: #526A37 rgba(0, 0, 0, 0.1);
+}
+
+/* ===== RESPONSIVE DESIGN MEJORADO ===== */
+@media (max-width: 1199px) {
+    .container-fluid {
+        padding: 10px;
+    }
+    
+    .tabla-container,
+    .form-container {
+        padding: 15px;
+    }
+    
+    .form-card {
+        padding: 15px;
+    }
+    
+    .table-header th {
+        padding: 12px 8px;
+        font-size: 0.85rem;
+    }
+    
+    .table-amarilla tbody td {
+        padding: 10px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .table-scroll-container {
+        height: 450px;
+    }
+}
+
+@media (max-width: 991px) {
+    .tabla-container {
+        margin-bottom: 20px;
+    }
+    
+    .table-scroll-container {
+        height: 400px;
+    }
+    
+    .table-amarilla {
+        min-width: 700px;
+    }
+    
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* Ajustar botones en tabla para móviles */
+    .btn-group .btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        padding: 5px;
+    }
+    
+    .container-fluid {
+        padding: 5px;
+    }
+    
+    .tabla-container,
+    .form-container {
+        padding: 12px;
+        border-radius: 10px;
+    }
+    
+    .form-card {
+        padding: 12px;
+    }
+    
+    .table-scroll-container {
+        height: 350px;
+    }
+    
+    .table-amarilla {
+        min-width: 650px;
+    }
+    
+    .table-header th {
+        padding: 10px 6px;
+        font-size: 0.8rem;
+    }
+    
+    .table-amarilla tbody td {
+        padding: 8px 6px;
+        font-size: 0.85rem;
+    }
+    
+    .badge {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .form-control {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .btn-group .btn {
+        margin: 0;
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 575px) {
+    .tabla-container h2,
+    .form-card h4 {
+        font-size: 1.3rem;
+    }
+    
+    .table-scroll-container {
+        height: 300px;
+    }
+    
+    .table-amarilla {
+        min-width: 600px;
+    }
+    
+    /* Ocultar algunos elementos en móviles muy pequeños */
+    .table-amarilla thead th:nth-child(1),
+    .table-amarilla tbody td:nth-child(1) {
+        display: none;
+    }
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tabla-container, .form-container {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Indicador visual de que hay más contenido */
+.table-scroll-container::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #526A37, #3a4c27);
+    border-radius: 50%;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Efecto de sombra al hacer scroll */
+.table-scroll-container.scrolling::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), transparent);
+    z-index: 5;
+}
+/* ESTILOS COMPACTOS PARA LA VERSIÓN MÁS PEQUEÑA */
+.tabla-container-dark.compacto {
+    padding: 15px;
+}
+
+.form-container-dark.compacto {
+    padding: 15px;
+}
+
+.form-card-dark.compacto {
+    padding: 15px;
+}
+
+.table-scroll-container.compacto {
+    height: 400px;
+}
+
+.table-dark-custom.compacto th,
+.table-dark-custom.compacto td {
+    padding: 8px 6px;
+    font-size: 0.85rem;
+}
+
+.table-header-dark.compacto th {
+    padding: 10px 6px;
+    font-size: 0.8rem;
+}
+
+.user-avatar.compacto {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+}
+
+.user-name.compacto {
+    font-size: 0.9rem;
+}
+
+.contact-info.compacto {
+    font-size: 0.85rem;
+}
+
+.badge.compacto {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+}
+
+.password-dots.compacto {
+    font-size: 0.8rem;
+}
+
+.status-badge.compacto {
+    font-size: 0.75rem;
+}
+
+.btn-action.compacto {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+}
+
+.btn-group-custom.compacto .btn {
+    margin: 0 1px;
+}
+
+.empty-state.compacto i {
+    font-size: 1.5rem;
+}
+
+.form-control-dark.compacto {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+
+.form-label.small {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.btn-sm {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+}
+
+/* Ajustes responsive para versión compacta */
+@media (max-width: 1200px) {
+    .table-scroll-container.compacto {
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tabla-container-dark.compacto,
+    .form-container-dark.compacto {
+        padding: 10px;
+    }
+    
+    .form-card-dark.compacto {
+        padding: 12px;
+    }
+    
+    .table-scroll-container.compacto {
+        height: 300px;
+    }
+}
