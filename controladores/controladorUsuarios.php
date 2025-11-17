@@ -1,73 +1,75 @@
 <?php
-class ControladorUsuarios {
-    private $conexion;
+// CONEXIÓN A BASE DE DATOS
+$servidor = "localhost";
+$usuario = "root";
+$password = "12345678";
+$basedatos = "taqueriabuena_";
+
+$conexion = new mysqli($servidor, $usuario, $password, $basedatos);
+
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
+}
+
+// MANEJAR ELIMINACIÓN DE CLIENTE
+if(isset($_GET['eliminar'])) {
+    $id = intval($_GET['eliminar']);
+    $stmt = $conexion->prepare("DELETE FROM clientes WHERE idcliente = ?");
+    $stmt->bind_param("i", $id);
     
-    public function __construct() {
-        $this->conectarBD();
-        $this->inicializarTabla();
-    }
-    
-    private function conectarBD() {
-        $servidor = "localhost";
-        $usuario = "root";
-        $password = "12345678";
-        $basedatos = "taqueriabuena";
-        
-        $this->conexion = new mysqli($servidor, $usuario, $password, $basedatos);
-        
-        if ($this->conexion->connect_error) {
-            die("Error de conexión: " . $this->conexion->connect_error);
-        }
-    }
-    
-    private function inicializarTabla() {
-        $this->conexion->query("CREATE TABLE IF NOT EXISTS usuarios (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            usuario VARCHAR(50) NOT NULL UNIQUE,
-            correo_telefono VARCHAR(100),
-            contrasena VARCHAR(100) NOT NULL,
-            fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )");
-        
-        $checkData = $this->conexion->query("SELECT COUNT(*) as total FROM usuarios");
-        $row = $checkData->fetch_assoc();
-        if ($row['total'] == 0) {
-            $this->insertarDatosEjemplo();
-        }
-    }
-    
-    private function insertarDatosEjemplo() {
-        $usuariosEjemplo = [
-            "('usuario_premium', 'usuario.premium@gmail.com', 'premium123')",
-            "('juan_perez', 'juan.perez@hotmail.com', 'juan456')",
-            "('maria_lopez', '5512345678', 'maria789')",
-            "('carlos_garcia', 'carlos.garcia@yahoo.com', 'carlos2024')",
-            "('ana_rodriguez', '5523456789', 'ana123')",
-            "('luis_martinez', 'luis.martinez@gmail.com', 'luis456')",
-            "('sofia_hernandez', '5534567890', 'sofia789')",
-            "('miguel_torres', 'miguel.torres@outlook.com', 'miguel123')"
-        ];
-        
-        foreach ($usuariosEjemplo as $usuario) {
-            $this->conexion->query("INSERT INTO usuarios (usuario, correo_telefono, contrasena) VALUES $usuario");
-        }
-    }
-    
-    public function obtenerUsuarios() {
-        $sql = "SELECT id, usuario, correo_telefono, contrasena, fecha_registro FROM usuarios ORDER BY fecha_registro DESC";
-        $resultado = $this->conexion->query($sql);
-        return $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
-    }
-    
-    public function cerrarConexion() {
-        if ($this->conexion) {
-            $this->conexion->close();
-        }
+    if($stmt->execute()) {
+        echo "<script>window.location.href = 'index.php?page=clientes&mensaje=Cliente+eliminado+correctamente';</script>";
+        exit();
+    } else {
+        echo "<script>window.location.href = 'index.php?page=clientes&error=Error+al+eliminar+el+cliente';</script>";
+        exit();
     }
 }
 
-// Ejecutar controlador
-$controlador = new ControladorUsuarios();
-$usuarios = $controlador->obtenerUsuarios();
-$controlador->cerrarConexion();
+// MANEJAR GUARDAR/ACTUALIZAR CLIENTE
+if($_POST && isset($_POST['nombre'])) {
+    $id = $_POST['idCliente'] ?? '';
+    $nombre = trim($_POST['nombre'] ?? '');
+    $direccion = trim($_POST['direccion'] ?? '');
+    $telefono = trim($_POST['telefono'] ?? '');
+    
+    // VALIDACIONES
+    if(empty($nombre) || empty($direccion) || empty($telefono)) {
+        echo "<script>window.location.href = 'index.php?page=clientes&error=Nombre,+dirección+y+teléfono+son+obligatorios';</script>";
+        exit();
+    }
+    
+    if(empty($id)) {
+        // INSERTAR NUEVO CLIENTE
+        $stmt = $conexion->prepare("INSERT INTO clientes (nombre, direccion, telefono) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $nombre, $direccion, $telefono);
+    } else {
+        // ACTUALIZAR CLIENTE EXISTENTE
+        $stmt = $conexion->prepare("UPDATE clientes SET nombre=?, direccion=?, telefono=? WHERE idcliente=?");
+        $stmt->bind_param("sssi", $nombre, $direccion, $telefono, $id);
+    }
+    
+    if($stmt->execute()) {
+        echo "<script>window.location.href = 'index.php?page=clientes&mensaje=Cliente+guardado+correctamente';</script>";
+        exit();
+    } else {
+        echo "<script>window.location.href = 'index.php?page=clientes&error=Error+al+guardar+el+cliente';</script>";
+        exit();
+    }
+    $stmt->close();
+}
+
+// OBTENER TODOS LOS CLIENTES
+$sql = "SELECT idcliente, nombre, direccion, telefono FROM clientes ORDER BY idcliente";
+$resultado = $conexion->query($sql);
+$clientes = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
+
+$conexion->close();
+
+// OBTENER MENSAJES
+$mensaje = $_GET['mensaje'] ?? '';
+$error = $_GET['error'] ?? '';
+
+// INCLUIR LA VISTA
+include 'pages/clientes.php';
 ?>

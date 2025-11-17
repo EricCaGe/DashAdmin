@@ -3,7 +3,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $password = "12345678";
-$basedatos = "taqueriabuena";
+$basedatos = "taqueriabuena_";
 
 $conexion = new mysqli($servidor, $usuario, $password, $basedatos);
 
@@ -18,10 +18,11 @@ if(isset($_GET['eliminar'])) {
     $stmt->bind_param("i", $id);
     
     if($stmt->execute()) {
-        header("Location: index.php?page=stock&mensaje=Producto+eliminado+correctamente");
+        // Usar JavaScript para redirección en lugar de header()
+        echo "<script>window.location.href = 'index.php?page=stock&mensaje=Producto+eliminado+correctamente';</script>";
         exit();
     } else {
-        header("Location: index.php?page=stock&error=Error+al+eliminar+el+producto");
+        echo "<script>window.location.href = 'index.php?page=stock&error=Error+al+eliminar+el+producto';</script>";
         exit();
     }
 }
@@ -35,25 +36,25 @@ if($_POST && isset($_POST['nombre'])) {
     
     // VALIDACIONES
     if(empty($nombre) || $cantidad < 0 || $precio <= 0) {
-        header("Location: index.php?page=stock&error=Datos+inválidos");
+        echo "<script>window.location.href = 'index.php?page=stock&error=Datos+inválidos';</script>";
         exit();
     }
     
     if(empty($id)) {
-        // INSERTAR NUEVO PRODUCTO - CORREGIDO: "sid" en lugar de "sii"
+        // INSERTAR NUEVO PRODUCTO
         $stmt = $conexion->prepare("INSERT INTO producto (nombreproducto, cantidad, precio) VALUES (?, ?, ?)");
         $stmt->bind_param("sid", $nombre, $cantidad, $precio);
     } else {
-        // ACTUALIZAR PRODUCTO EXISTENTE - CORREGIDO: "sidi" en lugar de "siii"
+        // ACTUALIZAR PRODUCTO EXISTENTE
         $stmt = $conexion->prepare("UPDATE producto SET nombreproducto=?, cantidad=?, precio=? WHERE idproducto=?");
         $stmt->bind_param("sidi", $nombre, $cantidad, $precio, $id);
     }
     
     if($stmt->execute()) {
-        header("Location: index.php?page=stock&mensaje=Producto+guardado+correctamente");
+        echo "<script>window.location.href = 'index.php?page=stock&mensaje=Producto+guardado+correctamente';</script>";
         exit();
     } else {
-        header("Location: index.php?page=stock&error=Error+al+guardar+el+producto");
+        echo "<script>window.location.href = 'index.php?page=stock&error=Error+al+guardar+el+producto';</script>";
         exit();
     }
     $stmt->close();
@@ -70,6 +71,6 @@ $conexion->close();
 $mensaje = $_GET['mensaje'] ?? '';
 $error = $_GET['error'] ?? '';
 
-// INCLUIR LA VISTA - RUTA CORREGIDA
+// INCLUIR LA VISTA
 include 'pages/stock.php';
 ?>

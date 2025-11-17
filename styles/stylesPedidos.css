@@ -1,0 +1,318 @@
+/* ===== ESTILOS GENERALES RESPONSIVE ===== */
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+.container-fluid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+/* ===== ALERTAS RESPONSIVE ===== */
+.alert {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    color: #155724;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da, #f1b0b7);
+    color: #721c24;
+}
+
+/* ===== CONTENEDOR DE PEDIDOS ===== */
+.pedidos-container {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.pedidos-container h2 {
+    color: #2c3e50;
+    font-weight: 700;
+    border-bottom: 3px solid #526A37;
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+/* ===== TARJETAS DE PEDIDO ===== */
+.pedido-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 5px solid #526A37;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(82, 106, 55, 0.2);
+}
+
+.pedido-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pedido-card.en-proceso {
+    border-left-color: #ffc107;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 193, 7, 0.1));
+}
+
+.pedido-card.pendiente {
+    border-left-color: #17a2b8;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(23, 162, 184, 0.1));
+}
+
+/* ===== HEADER DE PEDIDO ===== */
+.pedido-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(82, 106, 55, 0.2);
+}
+
+.pedido-info h4 {
+    color: #2c3e50;
+    margin: 0;
+    font-weight: 700;
+}
+
+.pedido-info p {
+    margin: 5px 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.pedido-info .telefono {
+    color: #526A37;
+    font-weight: 600;
+}
+
+/* ===== ESTADO DEL PEDIDO ===== */
+.estado-pedido {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.badge-estado {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-proceso {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    color: #000;
+}
+
+.badge-pendiente {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: #fff;
+}
+
+/* ===== TABLA DE PRODUCTOS ===== */
+.tabla-productos {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.tabla-productos table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-productos th {
+    background: linear-gradient(135deg, #526A37, #3a4c27);
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.tabla-productos td {
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: #2c3e50;
+}
+
+.tabla-productos tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-productos tr:hover {
+    background: rgba(82, 106, 55, 0.05);
+}
+
+/* ===== TOTAL Y ACCIONES ===== */
+.pedido-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 2px solid rgba(82, 106, 55, 0.2);
+}
+
+.total-pedido {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #526A37;
+}
+
+/* ===== BOTONES ===== */
+.btn {
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-camino {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+}
+
+.btn-camino:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34);
+}
+
+.btn-camino:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ===== ESTADO VACÍO ===== */
+.estado-vacio {
+    text-align: center;
+    padding: 50px 20px;
+    color: #6c757d;
+}
+
+.estado-vacio i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.estado-vacio h4 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .pedido-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .estado-pedido {
+        align-self: flex-end;
+    }
+    
+    .pedido-footer {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .tabla-productos {
+        font-size: 0.85rem;
+    }
+    
+    .tabla-productos th,
+    .tabla-productos td {
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-fluid {
+        padding: 10px;
+    }
+    
+    .pedidos-container {
+        padding: 15px;
+    }
+    
+    .pedido-card {
+        padding: 15px;
+    }
+    
+    .btn {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+}
+/* Estados adicionales para los badges */
+.badge-camino {
+    background: #17a2b8;
+    color: white;
+}
+
+.badge-entregado {
+    background: #28a745;
+    color: white;
+}
+
+/* Estados adicionales para las cards */
+.estado-en_camino {
+    border-left: 4px solid #17a2b8;
+}
+
+.estado-entregado {
+    border-left: 4px solid #28a745;
+    opacity: 0.8;
+}
+
+/* Botones para nuevos estados */
+.btn-camino {
+    background: #17a2b8;
+    color: white;
+}
+
+.btn-entregado {
+    background: #28a745;
+    color: white;
+}
+
+.btn-completado {
+    background: #6c757d;
+    color: white;
+}

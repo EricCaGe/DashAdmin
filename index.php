@@ -23,7 +23,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
-<body id="page-top" class="bg-image" style="background-image: url('./img/TacosFondo.png');">
+<body id="page-top" class="bg-image" style="background-image: url('./images/TacosFondo.png');">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -55,7 +55,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario</span>
-                                    <img class="img-profile rounded-circle" src="img/user-profile.jpg">
+                                    <img class="img-profile rounded-circle" src="images/user-profile.jpg">
                                 </a>
                             </li>
                         </ul>
@@ -71,9 +71,9 @@
                                 <div class="card shadow glass-effect h-100">
                                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="background: rgba(82, 106, 55, 0.9);">
                                         <h6 class="m-0 font-weight-bold text-white">
-                                            <i class="fas fa-fire me-2"></i>Productos Más Vendidos Hoy
+                                            <i class="fas fa-fire me-2"></i>Productos Más Vendidos
                                         </h6>
-                                        <span class="badge bg-warning"><?= date('d/m/Y') ?></span>
+                                        <span class="badge bg-warning">Total General</span>
                                     </div>
                                     <div class="card-body p-0">
                                         <?php if(!empty($productos_top)): ?>
@@ -83,9 +83,8 @@
                                                         <tr>
                                                             <th class="border-0">#</th>
                                                             <th class="border-0">Producto</th>
-                                                            <th class="border-0">Ventas</th>
-                                                            <th class="border-0">Ingresos</th>
-                                                            <th class="border-0">Estado</th>
+                                                            <th class="border-0">Cantidad Total</th>
+                                                            <th class="border-0">Precio Total</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -99,22 +98,13 @@
                                                                 <?php endif; ?>
                                                             </td>
                                                             <td>
-                                                                <strong><?= $producto['nombreproducto'] ?></strong>
+                                                                <strong><?= htmlspecialchars($producto['nombreproducto']) ?></strong>
                                                             </td>
                                                             <td>
-                                                                <span class="badge bg-info text-dark"><?= $producto['ventas_hoy'] ?> uds</span>
+                                                                <span class="badge bg-info text-dark"><?= $producto['cantidad_total'] ?> uds</span>
                                                             </td>
                                                             <td>
-                                                                <span class="text-success fw-bold">$<?= number_format($producto['ingresos'], 2) ?></span>
-                                                            </td>
-                                                            <td>
-                                                                <?php if($producto['ventas_hoy'] > 10): ?>
-                                                                    <span class="badge bg-success">Alta Demanda</span>
-                                                                <?php elseif($producto['ventas_hoy'] > 5): ?>
-                                                                    <span class="badge bg-warning">Media Demanda</span>
-                                                                <?php else: ?>
-                                                                    <span class="badge bg-primary">Baja Demanda</span>
-                                                                <?php endif; ?>
+                                                                <span class="text-success fw-bold">$<?= number_format($producto['precio_total'], 2) ?></span>
                                                             </td>
                                                         </tr>
                                                         <?php endforeach; ?>
@@ -124,25 +114,21 @@
                                         <?php else: ?>
                                             <div class="text-center py-5">
                                                 <i class="fas fa-chart-bar fa-4x text-muted mb-3"></i>
-                                                <h6 class="text-muted">No hay ventas registradas hoy</h6>
-                                                <small class="text-muted">Las ventas de hoy aparecerán aquí</small>
+                                                <h6 class="text-muted">No hay productos vendidos</h6>
+                                                <small class="text-muted">Los productos vendidos aparecerán aquí</small>
                                             </div>
                                         <?php endif; ?>
                                         
                                         <!-- Resumen compacto -->
                                         <div class="p-3" style="background: rgba(82, 106, 55, 0.05); border-top: 1px solid rgba(0,0,0,0.1);">
                                             <div class="row text-center">
-                                                <div class="col-4">
-                                                    <small class="text-muted d-block">Total Hoy</small>
-                                                    <div class="fw-bold text-primary"><?= $total_vendido_hoy ?> uds</div>
+                                                <div class="col-6">
+                                                    <small class="text-muted d-block">Total Vendido</small>
+                                                    <div class="fw-bold text-primary"><?= array_sum(array_column($productos_top, 'cantidad_total')) ?> uds</div>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-6">
                                                     <small class="text-muted d-block">Productos</small>
                                                     <div class="fw-bold text-success"><?= count($productos_top) ?></div>
-                                                </div>
-                                                <div class="col-4">
-                                                    <small class="text-muted d-block">Ingresos</small>
-                                                    <div class="fw-bold text-warning">$<?= number_format($ingreso_total_hoy, 2) ?></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,60 +159,40 @@
                                         </div>
                                     </div>
 
-                                    <!-- Card Ventas -->
-                                    <div class="col-md-6 col-xl-12 mb-4">
-                                        <div class="card border-left-success shadow h-100 py-2 glass-effect">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                            Ventas Totales</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                            <?= $metricas['ventas'] ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fas fa-dollar-sign fa-2x text-success"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Card Productos Diferentes -->
-                                    <div class="col-md-6 col-xl-12 mb-4">
-                                        <div class="card border-left-info shadow h-100 py-2 glass-effect">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                            Productos Diferentes</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                            <?= $metricas['productos_diferentes'] ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fas fa-clipboard-list fa-2x text-info"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Card Ingresos -->
+                                    <!-- Card Pedidos Pendientes -->
                                     <div class="col-md-6 col-xl-12 mb-4">
                                         <div class="card border-left-warning shadow h-100 py-2 glass-effect">
                                             <div class="card-body">
                                                 <div class="row no-gutters align-items-center">
                                                     <div class="col mr-2">
                                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                            Ingresos Totales</div>
+                                                            Pedidos Activos</div>
                                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                            $<?= number_format($metricas['ingresos'], 2) ?>
+                                                            <?= $metricas['pedidos_pendientes'] ?>
                                                         </div>
                                                     </div>
                                                     <div class="col-auto">
-                                                        <i class="fas fa-chart-line fa-2x text-warning"></i>
+                                                        <i class="fas fa-clock fa-2x text-warning"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card Pedidos Hoy -->
+                                    <div class="col-md-6 col-xl-12 mb-4">
+                                        <div class="card border-left-info shadow h-100 py-2 glass-effect">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                            Pedidos Hoy</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                            <?= $metricas['pedidos_hoy'] ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-shopping-bag fa-2x text-info"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -278,6 +244,26 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Card Total Productos Vendidos -->
+                                    <div class="col-md-6 col-xl-12 mb-4">
+                                        <div class="card border-left-danger shadow h-100 py-2 glass-effect">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                            Total Vendido</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                            <?= array_sum(array_column($productos_top, 'cantidad_total')) ?> uds
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-chart-line fa-2x text-danger"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -296,11 +282,11 @@
         include 'controladores/controladorEmpleados.php';
         break;
     case 'clientes':
-        // Incluir el controlador primero
-        include 'controladores/controladorUsuarios.php';
-        // Luego incluir la vista
-        include 'pages/usuarios.php';
-        break;
+    include 'controladores/controladorUsuarios.php';
+    break;
+    case 'pedidos':
+    include 'controladores/controladorPedidos.php';
+    break;
 }
                 }
                 ?>

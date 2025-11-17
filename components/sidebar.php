@@ -4,7 +4,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon">
-            <img src="img/logo.png" alt="Logo" style="height: 75px; width: auto;">
+            <img src="images/logoB.png" alt="logo" style="height: 75px; width: auto;">
         </div>
     </a>
 
@@ -59,9 +59,18 @@
         </a>
     </li>
 
+    <!-- Nav Item - Pedidos -->
+<li class="nav-item <?= $page == 'pedidos' ? 'active' : '' ?>">
+    <a class="nav-link" href="index.php?page=pedidos">
+        <i class="fas fa-motorcycle"></i>
+        <span>Pedidos a Domicilio</span>
+    </a>
+</li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
+    
     <!-- Nav Item - Cerrar Sesión -->
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">

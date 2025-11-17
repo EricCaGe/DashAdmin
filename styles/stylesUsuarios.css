@@ -1,4 +1,4 @@
-/* ===== ESTILOS GENERALES ===== */
+/* ===== ESTILOS GENERALES RESPONSIVE ===== */
 body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     margin: 0;
@@ -13,45 +13,82 @@ body {
     padding: 15px;
 }
 
-/* ===== ENCABEZADO USUARIOS ===== */
-.usuarios-header {
-    color: white;
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: 600;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+/* ===== ALERTAS RESPONSIVE ===== */
+.alert {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
 }
 
-/* ===== CONTENEDOR DE TABLA ===== */
+.alert-success {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    color: #155724;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da, #f1b0b7);
+    color: #721c24;
+}
+
+/* ===== CONTENEDOR DE TABLA RESPONSIVE ===== */
 .tabla-container {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    height: fit-content;
 }
 
-/* ===== CONTENEDOR CON SCROLL DUAL ===== */
+.tabla-container h2 {
+    color: #2c3e50;
+    font-weight: 700;
+    border-bottom: 3px solid #526A37;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+/* ===== CONTENEDOR CON SCROLL DUAL MEJORADO ===== */
 .table-scroll-container {
-    height: 600px;
+    height: 500px;
     overflow: auto;
-    border-radius: 10px;
+    border-radius: 12px;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
 }
 
-/* ===== TABLA USUARIOS ===== */
-.table-usuarios {
+/* ===== ESTILOS DE TABLA RESPONSIVA CON SCROLL ===== */
+.table-responsive-custom {
+    overflow: visible;
+    min-height: 0;
+}
+
+.table-amarilla {
     width: 100%;
     margin-bottom: 0;
     color: #2c3e50;
     background: transparent;
     table-layout: fixed;
-    min-width: 900px;
+    min-width: 850px;
 }
 
+/* Ajustar anchos de columnas para usuarios */
+.table-amarilla thead th:nth-child(1) { width: 8%; }   /* # */
+.table-amarilla thead th:nth-child(2) { width: 22%; }  /* USUARIO */
+.table-amarilla thead th:nth-child(3) { width: 25%; }  /* EMAIL */
+.table-amarilla thead th:nth-child(4) { width: 15%; }  /* CONTRASEÑA */
+.table-amarilla thead th:nth-child(5) { width: 15%; }  /* OCUPACIÓN */
+.table-amarilla thead th:nth-child(6) { width: 15%; }  /* ACCIONES */
+
 .table-header th {
-    background: linear-gradient(135deg, #3498db, #2980b9);
+    background: linear-gradient(135deg, #526A37, #3a4c27);
     color: #ffffff;
     font-weight: 600;
     border: none;
@@ -62,22 +99,31 @@ body {
     z-index: 10;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     white-space: nowrap;
 }
 
-.table-usuarios tbody td {
-    background: rgba(255, 255, 255, 0.9);
+.table-amarilla tbody td {
+    background: rgba(255, 255, 255, 0.8);
     color: #2c3e50;
     border-color: rgba(0, 0, 0, 0.1);
     padding: 12px 10px;
     vertical-align: middle;
     transition: all 0.3s ease;
     word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.table-usuarios tbody tr:hover td {
-    background: rgba(52, 152, 219, 0.1);
+/* Permitir que el email se expanda */
+.table-amarilla tbody td:nth-child(3) {
+    white-space: normal;
+    min-width: 180px;
+}
+
+.table-amarilla tbody tr:hover td {
+    background: rgba(82, 106, 55, 0.1);
     transform: scale(1.01);
 }
 
@@ -86,35 +132,42 @@ body {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #3498db, #2980b9);
-    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     font-size: 0.9rem;
+    background: linear-gradient(135deg, #526A37, #3a4c27);
+    color: white;
 }
 
 .user-name {
     font-weight: 600;
-    font-size: 0.9rem;
+    color: #2c3e50;
 }
 
+/* ===== INFORMACIÓN DE CONTACTO ===== */
 .contact-info {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
+.contact-info div {
+    margin-bottom: 2px;
+}
+
+/* ===== PUNTOS DE CONTRASEÑA ===== */
 .password-dots {
-    color: #6c757d;
-    font-weight: 600;
+    font-family: monospace;
+    font-size: 1rem;
+    letter-spacing: 2px;
 }
 
-/* ===== BADGES ===== */
+/* ===== BADGES DE OCUPACIÓN ===== */
 .badge {
-    padding: 6px 10px;
-    border-radius: 15px;
+    padding: 8px 12px;
+    border-radius: 20px;
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     white-space: nowrap;
 }
 
@@ -122,57 +175,231 @@ body {
     background: linear-gradient(135deg, #28a745, #20c997) !important;
 }
 
-/* ===== ESTADO VACÍO ===== */
-.empty-state {
-    padding: 40px 20px;
+.bg-warning {
+    background: linear-gradient(135deg, #ffc107, #fd7e14) !important;
+    color: #000 !important;
 }
 
-.empty-state i {
-    opacity: 0.5;
+.bg-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333) !important;
+}
+
+.bg-info {
+    background: linear-gradient(135deg, #17a2b8, #138496) !important;
+}
+
+.bg-primary {
+    background: linear-gradient(135deg, #526A37, #3a4c27) !important;
+}
+
+/* ===== CONTENEDOR DE FORMULARIO RESPONSIVE ===== */
+.form-container {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    height: fit-content;
+}
+
+.form-card {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #526A37;
+    color: #2c3e50;
+}
+
+.form-card h4 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid #526A37;
+    padding-bottom: 12px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+}
+
+/* ===== FORMULARIO RESPONSIVE ===== */
+.form-label {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    color: #2c3e50;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    width: 100%;
+}
+
+.form-control::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.form-control:focus {
+    border-color: #526A37;
+    box-shadow: 0 0 0 0.3rem rgba(82, 106, 55, 0.25);
+    color: #2c3e50;
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+}
+
+/* ===== BOTONES RESPONSIVE ===== */
+.btn {
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #526A37, #3a4c27);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a7540, #43582e);
+}
+
+.btn-secondary {
+    background: rgba(108, 117, 125, 0.8);
+    border: 1px solid rgba(108, 117, 125, 0.3);
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background: rgba(108, 117, 125, 1);
+    border-color: #6c757d;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    color: #000000;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: #ffffff;
+}
+
+.btn-group .btn {
+    margin: 0 2px;
 }
 
 /* ===== SCROLLBARS PERSONALIZADOS ===== */
 .table-scroll-container::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
 }
 
 .table-scroll-container::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    margin: 4px;
 }
 
 .table-scroll-container::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #3498db, #2980b9);
+    background: linear-gradient(135deg, #526A37, #3a4c27);
     border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
 .table-scroll-container::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #2980b9, #2471a3);
+    background: linear-gradient(135deg, #5a7540, #43582e);
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1199px) {
     .container-fluid {
         padding: 10px;
     }
     
-    .tabla-container {
+    .tabla-container,
+    .form-container {
+        padding: 15px;
+    }
+    
+    .form-card {
         padding: 15px;
     }
     
     .table-scroll-container {
-        height: 500px;
-    }
-    
-    .usuarios-header {
-        font-size: 1.5rem;
+        height: 450px;
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 991px) {
+    .tabla-container {
+        margin-bottom: 20px;
+    }
+    
     .table-scroll-container {
         height: 400px;
+    }
+    
+    .table-amarilla {
+        min-width: 800px;
+    }
+}
+
+@media (max-width: 767px) {
+    .container-fluid {
+        padding: 5px;
+    }
+    
+    .tabla-container,
+    .form-container {
+        padding: 12px;
+    }
+    
+    .table-scroll-container {
+        height: 350px;
+    }
+    
+    .table-amarilla {
+        min-width: 750px;
+    }
+    
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .btn-group .btn {
+        margin: 0;
+    }
+}
+
+@media (max-width: 575px) {
+    .tabla-container h2,
+    .form-card h4 {
+        font-size: 1.3rem;
+    }
+    
+    .table-scroll-container {
+        height: 300px;
+    }
+    
+    .table-amarilla {
+        min-width: 700px;
     }
 }

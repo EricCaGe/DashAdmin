@@ -3,7 +3,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $password = "12345678";
-$basedatos = "taqueriabuena";
+$basedatos = "taqueriabuena_";
 
 $conexion = new mysqli($servidor, $usuario, $password, $basedatos);
 
@@ -18,10 +18,10 @@ if(isset($_GET['eliminar'])) {
     $stmt->bind_param("i", $id);
     
     if($stmt->execute()) {
-        header("Location: index.php?page=empleados&mensaje=Empleado+eliminado+correctamente");
+        echo "<script>window.location.href = 'index.php?page=empleados&mensaje=Empleado+eliminado+correctamente';</script>";
         exit();
     } else {
-        header("Location: index.php?page=empleados&error=Error+al+eliminar+el+empleado");
+        echo "<script>window.location.href = 'index.php?page=empleados&error=Error+al+eliminar+el+empleado';</script>";
         exit();
     }
 }
@@ -30,50 +30,43 @@ if(isset($_GET['eliminar'])) {
 if($_POST && isset($_POST['usuario'])) {
     $id = $_POST['idEmpleado'] ?? '';
     $usuario = trim($_POST['usuario'] ?? '');
-    $correo_telefono = trim($_POST['correo_telefono'] ?? '');
-    $ocupacion = $_POST['ocupacion'] ?? 'empleado';
+    $correo = trim($_POST['correo'] ?? '');
+    $telefono = trim($_POST['telefono'] ?? '');
     $contrasena = $_POST['contrasena'] ?? '';
+    $ocupacion = trim($_POST['ocupacion'] ?? 'empleado');
     
     // VALIDACIONES
-    if(empty($usuario) || empty($correo_telefono)) {
-        header("Location: index.php?page=empleados&error=Datos+inválidos");
+    if(empty($usuario) || empty($correo)) {
+        echo "<script>window.location.href = 'index.php?page=empleados&error=Usuario+y+correo+son+obligatorios';</script>";
         exit();
-    }
-    
-    // VALIDAR CONTRASEÑAS SI SE ESTÁN CAMBIANDO
-    if(!empty($contrasena)) {
-        $confirmar_contrasena = $_POST['confirmar_contrasena'] ?? '';
-        if($contrasena !== $confirmar_contrasena) {
-            header("Location: index.php?page=empleados&error=Las+contraseñas+no+coinciden");
-            exit();
-        }
     }
     
     if(empty($id)) {
         // INSERTAR NUEVO EMPLEADO
-        if(!empty($contrasena)) {
-            $stmt = $conexion->prepare("INSERT INTO empleados (usuario, correo_telefono, ocupacion, contrasena) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $usuario, $correo_telefono, $ocupacion, $contrasena);
-        } else {
-            $stmt = $conexion->prepare("INSERT INTO empleados (usuario, correo_telefono, ocupacion) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $usuario, $correo_telefono, $ocupacion);
+        if(empty($contrasena)) {
+            echo "<script>window.location.href = 'index.php?page=empleados&error=La+contraseña+es+obligatoria+para+nuevos+empleados';</script>";
+            exit();
         }
+        $hash_contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+        $stmt = $conexion->prepare("INSERT INTO empleados (usuario, correo_telefono, contrasena, ocupacion) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $usuario, $correo, $hash_contrasena, $ocupacion);
     } else {
         // ACTUALIZAR EMPLEADO EXISTENTE
-        if(!empty($contrasena)) {
-            $stmt = $conexion->prepare("UPDATE empleados SET usuario=?, correo_telefono=?, ocupacion=?, contrasena=? WHERE id=?");
-            $stmt->bind_param("ssssi", $usuario, $correo_telefono, $ocupacion, $contrasena, $id);
-        } else {
+        if(empty($contrasena)) {
             $stmt = $conexion->prepare("UPDATE empleados SET usuario=?, correo_telefono=?, ocupacion=? WHERE id=?");
-            $stmt->bind_param("sssi", $usuario, $correo_telefono, $ocupacion, $id);
+            $stmt->bind_param("sssi", $usuario, $correo, $ocupacion, $id);
+        } else {
+            $hash_contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+            $stmt = $conexion->prepare("UPDATE empleados SET usuario=?, correo_telefono=?, contrasena=?, ocupacion=? WHERE id=?");
+            $stmt->bind_param("ssssi", $usuario, $correo, $hash_contrasena, $ocupacion, $id);
         }
     }
     
     if($stmt->execute()) {
-        header("Location: index.php?page=empleados&mensaje=Empleado+guardado+correctamente");
+        echo "<script>window.location.href = 'index.php?page=empleados&mensaje=Empleado+guardado+correctamente';</script>";
         exit();
     } else {
-        header("Location: index.php?page=empleados&error=Error+al+guardar+el+empleado");
+        echo "<script>window.location.href = 'index.php?page=empleados&error=Error+al+guardar+el+empleado';</script>";
         exit();
     }
     $stmt->close();
@@ -82,25 +75,7 @@ if($_POST && isset($_POST['usuario'])) {
 // OBTENER TODOS LOS EMPLEADOS
 $sql = "SELECT id, usuario, correo_telefono, ocupacion FROM empleados ORDER BY id";
 $resultado = $conexion->query($sql);
-
-if ($resultado && $resultado->num_rows > 0) {
-    $empleados = $resultado->fetch_all(MYSQLI_ASSOC);
-} else {
-    $empleados = [];
-}
-
-// CALCULAR ESTADÍSTICAS
-$total_empleados = count($empleados);
-$total_admins = 0;
-$total_empleados_role = 0;
-
-foreach ($empleados as $empleado) {
-    if ($empleado['ocupacion'] == 'admin') {
-        $total_admins++;
-    } else {
-        $total_empleados_role++;
-    }
-}
+$empleados = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
 
 $conexion->close();
 

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empleados - Gestión de Personal</title>
+    <title>Clientes - Gestión del Sistema</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="styles/stylesEmpleados.css" rel="stylesheet">
+    <link href="styles/stylesUsuarios.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -28,10 +28,10 @@
         <?php endif; ?>
 
         <div class="row g-3">
-            <!-- COLUMNA IZQUIERDA - TABLA DE EMPLEADOS -->
+            <!-- COLUMNA IZQUIERDA - TABLA DE CLIENTES -->
             <div class="col-12 col-lg-8">
                 <div class="tabla-container">
-                    <h2 class="mb-4"><i class="fas fa-users me-2"></i>Gestión de Empleados</h2>
+                    <h2 class="mb-4"><i class="fas fa-users me-2"></i>Gestión de Clientes</h2>
                     
                     <div class="table-scroll-container" id="tableScroll">
                         <div class="table-responsive-custom">
@@ -39,53 +39,50 @@
                                 <thead class="table-header">
                                     <tr>
                                         <th>#</th>
-                                        <th>USUARIO</th>
-                                        <th>CORREO/TELÉFONO</th>
-                                        <th>CONTRASEÑA</th>
-                                        <th>OCUPACIÓN</th>
+                                        <th>NOMBRE</th>
+                                        <th>DIRECCIÓN</th>
+                                        <th>TELÉFONO</th>
                                         <th class="text-center">ACCIONES</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if(!empty($empleados)): ?>
-                                        <?php foreach($empleados as $index => $empleado): ?>
+                                    <?php if(!empty($clientes)): ?>
+                                        <?php foreach($clientes as $index => $cliente): ?>
                                         <tr>
                                             <td><strong><?= $index + 1 ?></strong></td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="user-avatar">
-                                                        <?= strtoupper(substr($empleado['usuario'], 0, 2)) ?>
+                                                        <?= strtoupper(substr($cliente['nombre'], 0, 2)) ?>
                                                     </div>
                                                     <div class="ms-2">
-                                                        <strong><?= htmlspecialchars($empleado['usuario']) ?></strong>
+                                                        <div class="user-name"><?= htmlspecialchars($cliente['nombre']) ?></div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="contact-info">
-                                                    <i class="fas fa-envelope me-1 text-primary"></i>
-                                                    <?= htmlspecialchars($empleado['correo_telefono']) ?>
+                                                    <i class="fas fa-map-marker-alt me-1 text-primary"></i>
+                                                    <?= htmlspecialchars($cliente['direccion']) ?>
                                                 </div>
                                             </td>
                                             <td>
-                                                <span class="password-dots text-muted">••••••••</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge <?= $empleado['ocupacion'] == 'admin' ? 'bg-danger' : 'bg-primary' ?>">
-                                                    <?= htmlspecialchars($empleado['ocupacion']) ?>
-                                                </span>
+                                                <div class="contact-info">
+                                                    <i class="fas fa-phone me-1 text-success"></i>
+                                                    <?= htmlspecialchars($cliente['telefono']) ?>
+                                                </div>
                                             </td>
                                             <td class="text-center">
                                                 <div class="btn-group btn-group-sm" role="group">
-                                                    <button class="btn btn-warning" onclick="editarEmpleado(
-                                                        <?= $empleado['id'] ?>,
-                                                        '<?= addslashes($empleado['usuario']) ?>',
-                                                        '<?= addslashes($empleado['correo_telefono']) ?>',
-                                                        '<?= addslashes($empleado['ocupacion']) ?>'
+                                                    <button class="btn btn-warning" onclick="editarCliente(
+                                                        <?= $cliente['idcliente'] ?>,
+                                                        '<?= addslashes($cliente['nombre']) ?>',
+                                                        '<?= addslashes($cliente['direccion']) ?>',
+                                                        '<?= addslashes($cliente['telefono']) ?>'
                                                     )">
                                                         <i class="fas fa-edit me-1"></i>Editar
                                                     </button>
-                                                    <a href="index.php?page=empleados&eliminar=<?= $empleado['id'] ?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar al empleado \'<?= addslashes($empleado['usuario']) ?>\'?')">
+                                                    <a href="index.php?page=clientes&eliminar=<?= $cliente['idcliente'] ?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar al cliente \'<?= addslashes($cliente['nombre']) ?>\'?')">
                                                         <i class="fas fa-trash me-1"></i>Eliminar
                                                     </a>
                                                 </div>
@@ -94,10 +91,10 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="6" class="text-center py-5">
+                                            <td colspan="5" class="text-center py-5">
                                                 <i class="fas fa-users fa-3x text-muted mb-3"></i>
-                                                <h5 class="text-muted">No hay empleados registrados</h5>
-                                                <p class="text-muted mb-0">Agrega tu primer empleado usando el formulario</p>
+                                                <h5 class="text-muted">No hay clientes registrados</h5>
+                                                <p class="text-muted mb-0">Agrega tu primer cliente usando el formulario</p>
                                             </td>
                                         </tr>
                                     <?php endif; ?>
@@ -112,40 +109,31 @@
             <div class="col-12 col-lg-4">
                 <div class="form-container">
                     <div class="form-card">
-                        <h4><i class="fas fa-user-plus me-2"></i>Gestión de Empleados</h4>
-                        <form method="POST" id="formEmpleado">
-                            <input type="hidden" id="idEmpleado" name="idEmpleado">
+                        <h4><i class="fas fa-user-plus me-2"></i>Gestión de Clientes</h4>
+                        <form method="POST" id="formCliente">
+                            <input type="hidden" id="idCliente" name="idCliente">
                             
                             <div class="mb-3">
-                                <label class="form-label"><i class="fas fa-user me-1"></i>Usuario</label>
-                                <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Ej: juan_perez" required>
+                                <label class="form-label"><i class="fas fa-user me-1"></i>Nombre del Cliente</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ej: Juan Pérez" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label class="form-label"><i class="fas fa-envelope me-1"></i>Correo Electrónico</label>
-                                <input type="text" id="correo" name="correo" class="form-control" placeholder="ejemplo@taqueria.com" required>
+                                <label class="form-label"><i class="fas fa-map-marker-alt me-1"></i>Dirección</label>
+                                <textarea id="direccion" name="direccion" class="form-control" rows="3" placeholder="Dirección completa del cliente" required></textarea>
                             </div>
                             
                             <div class="mb-3">
-                                <label class="form-label"><i class="fas fa-lock me-1"></i>Contraseña</label>
-                                <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="••••••••">
-                                <small class="text-muted">Dejar en blanco para mantener la actual (solo en edición)</small>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label class="form-label"><i class="fas fa-briefcase me-1"></i>Ocupación</label>
-                                <select id="ocupacion" name="ocupacion" class="form-control" required>
-                                    <option value="empleado">Empleado</option>
-                                    <option value="admin">Administrador</option>
-                                </select>
+                                <label class="form-label"><i class="fas fa-phone me-1"></i>Teléfono</label>
+                                <input type="tel" id="telefono" name="telefono" class="form-control" placeholder="Ej: 555-123-4567" required>
                             </div>
                             
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary btn-lg">
-                                    <i class="fas fa-save me-1"></i>Guardar Empleado
+                                    <i class="fas fa-save me-1"></i>Guardar Cliente
                                 </button>
                                 <button type="button" onclick="limpiarFormulario()" class="btn btn-secondary">
-                                    <i class="fas fa-plus me-1"></i>Nuevo Empleado
+                                    <i class="fas fa-plus me-1"></i>Nuevo Cliente
                                 </button>
                             </div>
                         </form>
@@ -156,15 +144,14 @@
     </div>
 
     <script>
-    function editarEmpleado(id, usuario, correo, ocupacion) {
-        document.getElementById('idEmpleado').value = id;
-        document.getElementById('usuario').value = usuario;
-        document.getElementById('correo').value = correo;
-        document.getElementById('ocupacion').value = ocupacion;
-        document.getElementById('contrasena').value = '';
+    function editarCliente(id, nombre, direccion, telefono) {
+        document.getElementById('idCliente').value = id;
+        document.getElementById('nombre').value = nombre;
+        document.getElementById('direccion').value = direccion;
+        document.getElementById('telefono').value = telefono;
         
         // Cambiar texto del botón
-        document.querySelector('button[type="submit"]').innerHTML = '<i class="fas fa-save me-1"></i>Actualizar Empleado';
+        document.querySelector('button[type="submit"]').innerHTML = '<i class="fas fa-save me-1"></i>Actualizar Cliente';
         
         // Scroll suave al formulario en móviles
         if (window.innerWidth < 992) {
@@ -176,11 +163,10 @@
     }
 
     function limpiarFormulario() {
-        document.getElementById('formEmpleado').reset();
-        document.getElementById('idEmpleado').value = '';
-        document.getElementById('contrasena').value = '';
-        document.querySelector('button[type="submit"]').innerHTML = '<i class="fas fa-save me-1"></i>Guardar Empleado';
-        document.getElementById('usuario').focus();
+        document.getElementById('formCliente').reset();
+        document.getElementById('idCliente').value = '';
+        document.querySelector('button[type="submit"]').innerHTML = '<i class="fas fa-save me-1"></i>Guardar Cliente';
+        document.getElementById('nombre').focus();
     }
 
     // Auto-limpiar mensajes después de 5 segundos
